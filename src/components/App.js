@@ -17,7 +17,7 @@ const App = () => {
   }, [])
 
   const filteredRobots = robots.filter(({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()))
-  console.log(filteredRobots.length)
+
   return (
     <div className='tc'>
       <h1>RoboFriends</h1>
