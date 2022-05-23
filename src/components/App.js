@@ -22,14 +22,11 @@ const App = () => {
     if (searchTerm.length) {
       // filter robot list based on search term
       const matchingRobots = allRobots.filter(({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()))
-      // This isn't working
       setRobots(matchingRobots);
-      // length of filteredRobots should match matchingRobots at this point
-      console.log(filteredRobots.length, matchingRobots.length)
     } else {
       setRobots(allRobots);
     }
-  }, [searchTerm])
+  }, [searchTerm, allRobots])
 
   return (
     <div className='tc'>
