@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
+import Scroll from './Scroll';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [robotList, setRobotList] = useState([]);
+  const [filteredRobots, setRobots] = useState([]);
   const [allRobots, setAllRobots] = useState([]);
 
   useEffect(() => {
+    // fetch a list of robots
     (async () => {
       const res = await fetch('https://jsonplaceholder.typicode.com/users');
       const robots = await res.json();
       setAllRobots(robots);
-      setRobotList(robots);
+      setRobots(robots);
     })();
   })
 
   useEffect(() => {
     if (searchTerm.length) {
+      // filter robot list based on search term
       const matchingRobots = allRobots.filter(({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()))
       // This isn't working
-      setRobotList(matchingRobots);
-      console.log(robotList.length, matchingRobots.length)
+      setRobots(matchingRobots);
+      // length of filteredRobots should match matchingRobots at this point
+      console.log(filteredRobots.length, matchingRobots.length)
     } else {
-      setRobotList(allRobots);
+      setRobots(allRobots);
     }
   }, [searchTerm])
 
@@ -31,7 +35,9 @@ const App = () => {
     <div className='tc'>
       <h1>RoboFriends</h1>
       <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
-      <CardList robots={robotList}/>
+      <Scroll>
+        <CardList robots={filteredRobots}/>
+      </Scroll>
     </div>
   )
 }
