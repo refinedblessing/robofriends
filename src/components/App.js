@@ -5,36 +5,27 @@ import Scroll from './Scroll';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredRobots, setRobots] = useState([]);
-  const [allRobots, setAllRobots] = useState([]);
+  const [robots, setRobots] = useState([]);
 
   useEffect(() => {
     // fetch a list of robots
     (async () => {
       const res = await fetch('https://jsonplaceholder.typicode.com/users');
       const robots = await res.json();
-      setAllRobots(robots);
       setRobots(robots);
     })();
-  })
+  }, [])
 
-  useEffect(() => {
-    if (searchTerm.length) {
-      // filter robot list based on search term
-      const matchingRobots = allRobots.filter(({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()))
-      setRobots(matchingRobots);
-    } else {
-      setRobots(allRobots);
-    }
-  }, [searchTerm, allRobots])
-
+  const filteredRobots = robots.filter(({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()))
+  console.log(filteredRobots.length)
   return (
     <div className='tc'>
       <h1>RoboFriends</h1>
       <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
-      <Scroll>
-        <CardList robots={filteredRobots}/>
-      </Scroll>
+      {filteredRobots.length ? 
+        <Scroll>
+          <CardList robots={filteredRobots}/>
+        </Scroll> : <h2>NO Robots</h2>}
     </div>
   )
 }
