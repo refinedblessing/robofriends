@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, legacy_createStore as createStore, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import 'tachyons';
 import './index.css';
 import App from './components/App'
@@ -21,3 +22,5 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+serviceWorkerRegistration.register();
