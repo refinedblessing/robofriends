@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 import Scroll from './Scroll';
 
-const App = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [robots, setRobots] = useState([]);
+import { requestRobots, setSearchTerm } from '../actions';
 
+const mapStateToProps = state => {
+  return {
+    searchTerm: state.searchRobots.searchTerm,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  onSearchChange: (e) => dispatch(setSearchTerm(e.target.value)),
+  onRequestRobots: () => dispatch(requestRobots())
+})
+
+const App = ({ onSearchChange, searchTerm, robots, onRequestRobots, isPending }) => {
   useEffect(() => {
-    // fetch a list of robots
-    (async () => {
-      const res = await fetch('https://jsonplaceholder.typicode.com/users');
-      const robots = await res.json();
-      setRobots(robots);
-    })();
-  }, [])
-
+    onRequestRobots();
+  }, [onRequestRobots])
   const filteredRobots = robots.filter(({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()))
 
   return (
     <div className='tc'>
       <h1>RoboFriends</h1>
-      <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+      <SearchBox searchTerm={searchTerm} onChange={onSearchChange}/>
       {filteredRobots.length ? 
         <Scroll>
           <CardList robots={filteredRobots}/>
@@ -30,4 +37,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

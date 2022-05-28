@@ -1,10 +1,23 @@
-import React from "react";
+import React from 'react';
 
-const SearchBox = ({ searchTerm, setSearchTerm }) => {
-  const handleValueChange = (e) => {
-    e.preventDefault();
-    setSearchTerm(e.target.value);
-  }
+// const mapDispatchToProps = (dispatch) => {
+//   onSearchChange: (e) => {
+//     e.preventDefault();
+//     setSearchTerm(e.target.value);
+//   }
+// }
+
+// const mapStateToProps = state => {
+//   return {
+//     value: state.searchRobots.searchTerm
+//   }
+// }
+
+const SearchBox = ({ searchTerm, onChange }) => {
+  // const onSearchChange = (e) => {
+  //   e.preventDefault();
+  //   setSearchTerm(e.target.value);
+  // }
   return (
     <div className="pa2">
       <input
@@ -12,7 +25,7 @@ const SearchBox = ({ searchTerm, setSearchTerm }) => {
         placeholder='search robots'
         className="pa3 ba bg-lightest-blue b--green"
         value={searchTerm}
-        onChange={handleValueChange}
+        onChange={onChange}
       />
     </div>
   )
