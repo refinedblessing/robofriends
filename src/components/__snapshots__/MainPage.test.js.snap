@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should expect Mainpage to render 1`] = `
+<div
+  className="tc"
+>
+  <CounterButton />
+  <h1>
+    RoboFriends
+  </h1>
+  <SearchBox
+    onChange={[MockFunction]}
+    searchTerm=""
+  />
+  <Scroll>
+    <CardList
+      robots={Array []}
+    />
+  </Scroll>
+</div>
+`;

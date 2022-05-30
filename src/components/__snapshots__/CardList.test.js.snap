@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`enzyme works 1`] = `
+<Card
+  email="jj@gmail.com"
+  id={1}
+  key="0"
+  name="Jon Sonow"
+  username="Josn"
+/>
+`;
