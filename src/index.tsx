@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { applyMiddleware, legacy_createStore as createStore, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
@@ -14,8 +14,9 @@ const logger = createLogger();
 const rootReducer = combineReducers({ searchRobots, requestRobots });
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const elemRoot = document.getElementById('root');
+const root = elemRoot && ReactDOM.createRoot(elemRoot);
+root && root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />

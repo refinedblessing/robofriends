@@ -1,14 +1,14 @@
-import { shallow, mount, render } from 'enzyme'
+import { shallow } from 'enzyme'
 import CardList from './CardList';
-import React from 'react'
+import * as React from 'react'
 
 it ('enzyme works', () => {
   const mockRobots = [
     {
       id: 1,
-      name: 'Jon Sonow',
+      name: 'Jon',
       email: 'jj@gmail.com',
-      username: 'Josn'
+      username: 'Josh'
     }
   ]
   expect(shallow(<CardList robots={mockRobots}/>).length).toEqual(1)

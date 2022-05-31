@@ -1,8 +1,26 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { requestRobots, setSearchTerm } from '../actions';
 import MainPage from './MainPage';
+import { requestRobots, setSearchTerm } from '../actions';
+
+export interface IRobot {
+  name: string;
+  username: string;
+  id: number;
+  email: string;
+}
+
+interface IAppProps {
+  onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onRequestRobots: () => void;
+}
+
+interface IAppState {
+  searchTerm: string;
+  robots: Array<IRobot>;
+  isPending: boolean;
+}
 
 const mapStateToProps = state => {
   return {
@@ -17,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
   onRequestRobots: () => dispatch(requestRobots())
 })
 
-const App = ({ onSearchChange, searchTerm, robots, onRequestRobots, isPending }) => {
+const App = ({ onSearchChange, searchTerm, robots, onRequestRobots, isPending }: IAppProps & IAppState) => {
   return (
     <MainPage
       onSearchChange={onSearchChange}
